@@ -1,228 +1,766 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projek</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <title>Projek – Adly Musyaffa Tibr</title>
+    <meta name="description" content="Kumpulan proyek dan karya yang telah dibuat oleh Adly Musyaffa Tibr.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #00c6ff;
+            --primary-dark: #0072ff;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-main: #f0f0f0;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+            --glow: 0 0 40px rgba(0, 198, 255, 0.3);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(ellipse at 80% 20%, rgba(0, 114, 255, 0.12) 0%, transparent 50%),
+                        radial-gradient(ellipse at 20% 80%, rgba(0, 198, 255, 0.08) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            padding: 18px 0;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled { padding: 12px 0; background: rgba(10,10,15,0.95); }
+
+        .nav-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px; height: 42px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: var(--glow);
+            transition: transform 0.3s;
+        }
+
+        .logo:hover .logo-icon { transform: rotate(10deg) scale(1.1); }
+        .logo-text { font-size: 1.1rem; font-weight: 600; color: var(--text-main); }
+
+        .navlinks {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .navlinks a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .navlinks a:hover, .navlinks a.active {
+            color: var(--primary);
+            background: rgba(0, 198, 255, 0.1);
+        }
+
+        .togglebtn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .togglebtn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ── Page Header ── */
+        .page-header {
+            padding: 140px 30px 60px;
+            text-align: center;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 198, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease both;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.6s ease 0.1s both;
+        }
+
+        .page-header h1 span {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.8;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+
+        /* ── Filter Tabs ── */
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 0 30px 40px;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+
+        .filter-btn {
+            padding: 8px 22px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: rgba(0, 198, 255, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ── Projects Grid ── */
+        .projects-section {
+            padding: 0 30px 80px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            transition: all 0.35s ease;
+            animation: fadeInUp 0.5s ease both;
+        }
+
+        .project-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-8px);
+            box-shadow: var(--glow);
+        }
+
+        /* Image wrapper */
+        .project-img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 220px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .project-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img-wrap img { transform: scale(1.08); }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 20px;
+        }
+
+        .project-card:hover .project-overlay { opacity: 1; }
+
+        .overlay-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0, 198, 255, 0.2);
+            border: 1px solid rgba(0, 198, 255, 0.5);
+            color: var(--primary);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        /* Card body */
+        .project-body {
+            padding: 24px;
+        }
+
+        .project-type {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .project-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 3px 12px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 500;
+        }
+
+        .project-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .project-number {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .project-number span { color: var(--primary); font-weight: 700; }
+
+        /* ── Sertifikat Section ── */
+        .cert-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px 80px;
+        }
+
+        .section-divider {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--primary);
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .section-divider::before,
+        .section-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease both;
+        }
+
+        .cert-card:hover {
+            border-color: rgba(0,198,255,0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0,198,255,0.2);
+        }
+
+        .cert-img-wrap {
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .cert-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .cert-card:hover .cert-img-wrap img { transform: scale(1.05); }
+
+        .cert-body {
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cert-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            background: rgba(0,198,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .cert-info { flex: 1; }
+
+        .cert-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 3px;
+            line-height: 1.3;
+        }
+
+        .cert-platform {
+            font-size: 0.72rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Lightbox ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background: rgba(0,0,0,0.92);
+            backdrop-filter: blur(12px);
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 0 60px rgba(0,198,255,0.3);
+            object-fit: contain;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px; right: 24px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .lightbox-close:hover { background: rgba(0,198,255,0.2); color: var(--primary); }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+            .cert-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .navlinks { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: rgba(10,10,15,0.97); padding: 20px; border-bottom: 1px solid var(--border); }
+            .navlinks.open { display: flex; }
+            .togglebtn { display: flex; }
+        }
+    </style>
 </head>
 <body>
-    <div class="hero-header">
-        <div class="wrapper">
-            <header>
-                <div class="logo">
-                    <div class="logo-text">Adly Musyaffa Tibr</div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">A</div>
+                <span class="logo-text">Adly Musyaffa</span>
+            </a>
+            <ul class="navlinks" id="navlinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="skill.html">Skill</a></li>
+                <li><a href="projek.html" class="active">Projek</a></li>
+            </ul>
+            <div class="togglebtn" id="togglebtn">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="section-tag">
+            <i class="fa-solid fa-folder-open"></i> Karya Saya
+        </div>
+        <h1>Projek & <span>Karya</span></h1>
+        <p>Kumpulan proyek dan pencapaian yang telah saya kerjakan dalam perjalanan belajar saya.</p>
+    </div>
+
+    <!-- Filter -->
+    <div class="filter-section">
+        <button class="filter-btn active" data-filter="all">Semua</button>
+        <button class="filter-btn" data-filter="web">Web Project</button>
+        <button class="filter-btn" data-filter="sertifikat">Sertifikat</button>
+    </div>
+
+    <!-- Projects -->
+    <div class="projects-section">
+        <div class="projects-grid" id="projects-grid">
+
+            <!-- Projek Ulang Tahun -->
+            <div class="project-card" data-cat="web" style="animation-delay:0.05s">
+                <div class="project-img-wrap">
+                    <img src="gambar/projek/ultah.jpg" alt="Website Ulang Tahun" onclick="openLightbox(this.src)">
+                    <div class="project-overlay">
+                        <span class="overlay-tag"><i class="fa-solid fa-eye"></i> Lihat Detail</span>
+                    </div>
                 </div>
-                <nav>
-                    <div class="togglebtn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <div class="project-body">
+                    <div class="project-type">Web Project</div>
+                    <h3 class="project-title">Website Ulang Tahun</h3>
+                    <p class="project-desc">Sebuah website ulang tahun interaktif yang saya buat sebagai kejutan spesial untuk orang terdekat saya.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">JavaScript</span>
                     </div>
-                    <ul class="navlinks">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="skill.html">Skill</a></li>
-                        <li><a href="projek.html">Projek</a></li>
-                    </ul>
-                </nav>
-            </header>
-
-            <div class="container">
-                <div class="hero-text">
-                    <h1>Projek Saya</h1>
-                    <p>Berikut adalah beberapa proyek yang telah saya kerjakan.</p>
-                </div>
-
-                <div class="project-list">
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="gambar/ultah.jpg" alt="Projek 1">
-                        </div>
-                        <div class="project-content">
-                            <h3>Projek Ulang tahu</h3>
-                            <p>Sebuah website ulang tahun yang saya buat untuk kejutan bagi orang terdekat saya</p>
-                        </div>
-                    </div>
-
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="gambar/webshop.jpg" alt="Projek 2">
-                        </div>
-                        <div class="project-content">
-                            <h3>Projek webshop</h3>
-                            <p>Portfolio pribadi yang dirancang untuk menampilkan barang yang ingin saya jual dan link produk nya.</p>
-                        </div>
-                    </div>
-
-                    <div class="project">
-                        <div class="project-image">
-                            <img src="gambar/sertifikat.jpg" alt="Projek 3">
-                        </div>
-                        <div class="project-content">
-                            <h3>sertifikat dicoding dasar dasar pemograman</h3>
-                            <p>saya mengikuti sebuah kelas dasar dasar pemograman di dicoding dan saya telah mendapatkan sertikat nya</p>
-                        </div>
+                    <div class="project-footer">
+                        <span class="project-number">Projek <span>#01</span></span>
                     </div>
                 </div>
             </div>
+
+            <!-- Projek Webshop -->
+            <div class="project-card" data-cat="web" style="animation-delay:0.1s">
+                <div class="project-img-wrap">
+                    <img src="gambar/projek/webshop.jpg" alt="Website Toko Online" onclick="openLightbox(this.src)">
+                    <div class="project-overlay">
+                        <span class="overlay-tag"><i class="fa-solid fa-eye"></i> Lihat Detail</span>
+                    </div>
+                </div>
+                <div class="project-body">
+                    <div class="project-type">Web Project</div>
+                    <h3 class="project-title">Website Toko Online</h3>
+                    <p class="project-desc">Website toko online pribadi yang dirancang untuk menampilkan produk beserta link pembelian secara langsung.</p>
+                    <div class="project-tags">
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">E-Commerce</span>
+                    </div>
+                    <div class="project-footer">
+                        <span class="project-number">Projek <span>#02</span></span>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+    <!-- Sertifikat Section -->
+    <div class="cert-section">
+        <div class="section-divider">Sertifikat & Pencapaian</div>
+        <div class="cert-grid" id="cert-grid">
+
+            <div class="cert-card" style="animation-delay:0.05s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/sertifikat.jpg" alt="Sertifikat" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-certificate"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Sertifikat Umum</div>
+                        <div class="cert-platform">Dicoding Indonesia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card" style="animation-delay:0.1s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/sertifdasarpemrograman.jpg" alt="Sertifikat Dasar Pemrograman" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-code"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Dasar Pemrograman</div>
+                        <div class="cert-platform">Dicoding Indonesia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card" style="animation-delay:0.15s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/sertifpengenalankelogika.jpg" alt="Pengenalan ke Logika" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-brain"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Pengenalan ke Logika Pemrograman</div>
+                        <div class="cert-platform">Dicoding Indonesia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card" style="animation-delay:0.2s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/sertifbotcamp.jpg" alt="Sertifikat Bootcamp" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Bootcamp Development</div>
+                        <div class="cert-platform">Dicoding Indonesia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card" style="animation-delay:0.25s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/setifbelajardasarcloud.jpg" alt="Sertifikat Dasar Cloud" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-cloud"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Belajar Dasar Cloud</div>
+                        <div class="cert-platform">Dicoding Indonesia</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card" style="animation-delay:0.3s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/Fotosertifikatdesacode.jpg" alt="Sertifikat Desa Code" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-award"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Sertifikat Desa Code</div>
+                        <div class="cert-platform">Program Khusus</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card" style="animation-delay:0.35s">
+                <div class="cert-img-wrap">
+                    <img src="gambar/projek/wadhanisertif.jpg" alt="Sertifikat Wadhani" onclick="openLightbox(this.src)" style="cursor:pointer">
+                </div>
+                <div class="cert-body">
+                    <div class="cert-icon"><i class="fa-solid fa-star"></i></div>
+                    <div class="cert-info">
+                        <div class="cert-title">Sertifikat Wadhani</div>
+                        <div class="cert-platform">Program Khusus</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <img id="lightbox-img" src="" alt="Preview">
+    </div>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        document.getElementById('togglebtn').addEventListener('click', function() {
+            document.getElementById('navlinks').classList.toggle('open');
+        });
+
+        // Lightbox
+        function openLightbox(src) {
+            event.stopPropagation();
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        .hero-header {
-            background-color: #222;
-            padding: 2rem 0;
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        header{
-    padding: 40px 0 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.logo{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-.logo i{
-    height: 45px;
-    width: 45px;
-    background-color: #007ced;
-    border-radius: 50%;
-    color: white;
-    font-weight: 700;
-    font-size: 1.5rem;
-    padding: 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-.logo .logo-text{
-    font-size: 24px;
-    font-weight: 500;
-    color: white;
-}
-nav .togglebtn{
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: 45px;
-    right: 3%;
-    z-index: 5;
-    cursor: pointer;
-    display: none;
-}
-nav .togglebtn span{
-    display: block;
-    background-color: #007ced;
-    margin: 5px 0px;
-    width: 100%;
-    height: 3px;
-    transition: 0.3s;
-    transition-property: trasform, opacity;
-}
-nav .navlinks{
-    list-style-type: none;
-}
-nav .navlinks li{
-    display: inline-block;
-}
-nav .navlinks li a{
-    color: white;
-    margin: 2.5rem;
-    text-decoration: none;
-}
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-        .navlinks a:hover {
-            color: #007ced;
-        }
+        // Filter tabs
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                const filter = this.dataset.filter;
 
-        .container {
-            text-align: center;
-            margin: 2rem auto;
-        }
+                // Show/hide projects grid
+                const projectCards = document.querySelectorAll('#projects-grid .project-card');
+                const certSection = document.querySelector('.cert-section');
 
-        .hero-text h1 {
-            font-size: 2.5rem;
-            color: #007ced;
-        }
+                if (filter === 'all') {
+                    projectCards.forEach(c => c.style.display = '');
+                    certSection.style.display = '';
+                } else if (filter === 'web') {
+                    projectCards.forEach(c => c.style.display = '');
+                    certSection.style.display = 'none';
+                } else if (filter === 'sertifikat') {
+                    projectCards.forEach(c => c.style.display = 'none');
+                    certSection.style.display = '';
+                }
+            });
+        });
 
-        .hero-text p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: #ddd;
-        }
+        // Animate on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
 
-        .project-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-
-        .project {
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .project:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .project-content {
-            padding: 1.5rem;
-            color: #333;
-        }
-
-        .project-content h3 {
-            color: #007ced;
-            margin-bottom: 1rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007ced;
-            color: #fff;
-            border-radius: 5px;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
-        .btn:hover {
-            background-color: #005bb5;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-            }
-
-            .hero-text h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+        document.querySelectorAll('.project-card, .cert-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>

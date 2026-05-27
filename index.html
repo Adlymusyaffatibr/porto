@@ -1,273 +1,591 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <title>Adly Musyaffa Tibr – Portfolio</title>
+    <meta name="description" content="Portfolio pribadi Adly Musyaffa Tibr, siswa SMK Wikrama Bogor jurusan Pengembangan Perangkat Lunak dan Gim.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #00c6ff;
+            --primary-dark: #0072ff;
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-main: #f0f0f0;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+            --glow: 0 0 40px rgba(0, 198, 255, 0.3);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 20% 20%, rgba(0, 114, 255, 0.15) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 80%, rgba(0, 198, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: bgPulse 8s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* ── Navbar ── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 18px 0;
+            background: rgba(10, 10, 15, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 12px 0;
+            background: rgba(10, 10, 15, 0.95);
+        }
+
+        .nav-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: var(--glow);
+            transition: transform 0.3s;
+        }
+
+        .logo:hover .logo-icon { transform: rotate(10deg) scale(1.1); }
+
+        .logo-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            letter-spacing: 0.3px;
+        }
+
+        .navlinks {
+            display: flex;
+            list-style: none;
+            gap: 10px;
+        }
+
+        .navlinks a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .navlinks a:hover,
+        .navlinks a.active {
+            color: var(--primary);
+            background: rgba(0, 198, 255, 0.1);
+        }
+
+        .togglebtn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .togglebtn span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 100px 30px 60px;
+        }
+
+        .hero-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+            width: 100%;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 198, 255, 0.1);
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            color: var(--primary);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            margin-bottom: 24px;
+            animation: fadeInDown 0.6s ease both;
+        }
+
+        .hero-badge i { font-size: 0.75rem; }
+
+        .hero-name {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            animation: fadeInUp 0.7s ease 0.1s both;
+        }
+
+        .hero-name .gradient-text {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary), #7dd3fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-role {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            animation: fadeInUp 0.7s ease 0.2s both;
+        }
+
+        .hero-role .typed-text {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            max-width: 480px;
+            margin-bottom: 36px;
+            animation: fadeInUp 0.7s ease 0.3s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.7s ease 0.4s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: #fff;
+            padding: 13px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 20px rgba(0, 114, 255, 0.4);
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 114, 255, 0.6);
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-main);
+            padding: 13px 28px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-card);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .hero-socials {
+            display: flex;
+            gap: 12px;
+            animation: fadeInUp 0.7s ease 0.5s both;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: rgba(0, 198, 255, 0.1);
+            transform: translateY(-4px);
+            box-shadow: var(--glow);
+        }
+
+        /* ── Profile Image ── */
+        .hero-image {
+            flex-shrink: 0;
+            animation: fadeInRight 0.8s ease 0.3s both;
+        }
+
+        .image-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+        }
+
+        .image-ring {
+            position: absolute;
+            inset: -16px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, var(--primary-dark), var(--primary), transparent 60%);
+            animation: spin 4s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .image-ring-inner {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            background: var(--bg-dark);
+        }
+
+        .profile-img {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid rgba(255,255,255,0.08);
+            z-index: 1;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .profile-img:hover img { transform: scale(1.08); }
+
+        /* Float badges */
+        .float-badge {
+            position: absolute;
+            background: rgba(15, 15, 25, 0.9);
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            z-index: 2;
+            animation: floatAnim 3s ease-in-out infinite alternate;
+        }
+
+        .float-badge i { color: var(--primary); font-size: 1rem; }
+        .float-badge-1 { top: 10px; right: -30px; animation-delay: 0s; }
+        .float-badge-2 { bottom: 20px; left: -40px; animation-delay: 1.5s; }
+
+        @keyframes floatAnim {
+            from { transform: translateY(0px); }
+            to   { transform: translateY(-8px); }
+        }
+
+        /* ── Stats ── */
+        .stats-section {
+            padding: 20px 30px 60px;
+        }
+
+        .stats-wrapper {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(40px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .hero-wrapper { flex-direction: column-reverse; align-items: center; text-align: center; }
+            .hero-desc { margin: 0 auto 36px; }
+            .hero-actions { justify-content: center; }
+            .hero-socials { justify-content: center; }
+            .float-badge-1 { right: -10px; }
+            .float-badge-2 { left: -10px; }
+            .image-container { width: 260px; height: 260px; }
+        }
+
+        @media (max-width: 600px) {
+            .navlinks { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; right: 0; background: rgba(10,10,15,0.97); padding: 20px; border-bottom: 1px solid var(--border); }
+            .navlinks.open { display: flex; }
+            .togglebtn { display: flex; }
+            .image-container { width: 220px; height: 220px; }
+        }
+    </style>
 </head>
-<style>
-*{
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    font-family: poppins, sans-serif;
-    text-decoration: none;
-}
-boddy{
-overflow-x: hidden;
-}
-.hero-header{
-    width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    background: #222;
-}
-.wrapper{
-    width: 1280px;
-    max-width: 95%;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-header{
-    padding: 40px 0 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.logo{
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-}
-.logo i{
-    height: 45px;
-    width: 45px;
-    background-color: #007ced;
-    border-radius: 50%;
-    color: #fff;
-    font-weight: 700;
-    font-size: 1.5rem;
-    padding: 10px;
-    margin-right: 5px;
-    cursor: pointer;
-    text-align: center;
-}
-.logo .logo-text{
-    font-size: 24px;
-    font-weight: 500;
-    color: #fff;
-}
-nav .togglebtn{
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    top: 45px;
-    right: 3%;
-    z-index: 5;
-    cursor: pointer;
-    display: none;
-}
-nav .togglebtn span{
-    display: block;
-    background-color: #007ced;
-    margin: 5px 0px;
-    width: 100%;
-    height: 3px;
-    transition: 0.3s;
-    transition-property: trasform, opacity;
-}
-nav .navlinks{
-    list-style-type: none;
-}
-nav .navlinks li{
-    display: inline-block;
-}
-nav .navlinks li a{
-    color: #e5e5e5;
-    margin: 2.5rem;
-}
-.container{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding-top: 4rem;
-}
-.container .hero-pic{
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 15px solid #444;
-    box-shadow: 5px 7px 25px rgba(0,0,0,0.5);
-}
-.hero-pic img{
-    height: 98%;
-    width: 97%;
-    transition: 0.5s;
-}
-.hero-pic img:hover{
-    transform: scale(1.2);
-}
-.hero-text{
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-}
-.hero-text h5{
-    color: #e5e5e5;
-    font-size: 14px;
-}
-.hero-text h5 span{
-    color:#007ced;
-    font-size: 16px;
-}
-.hero-text h1{
-    color: #007ced;
-    font-size: 3rem;
-}
-.hero-text p{
-    color: #e5e5e5;
-}
-.btn-group{
-    margin: 45px 0;
-}
-.btn-group .btn{
-    border-color: #d5d5d5;
-    color: #fff;
-    background-color: #333;
-    padding: 12px 25px;
-    margin: 5px 0;
-    margin-right: 7px;
-    border-radius: 30px;
-    border: 2px solid #e5e5e5e5;
-}
-.hero-text .social i{
-    color: #e5e5e5;
-    font-size: 18px;
-    margin-right: 10px;
-    transition: 0.5s;
-}
-.hero-text .social i:hover{
-    color: #007ced;
-    transform: rotate(360deg);
-}
-@media(max-width:930px)
-{
-    nav .togglebtn{
-        display: initial;
-    }
-    .click{
-        top: 45px;
-    }
-    .click span{
-        position: absolute;
-        margin-top: 12px;
-    }
-    .click span:first-child{
-        transform: rotate(-40deg);
-    }
-    .click span:nth-child(2){
-        opacity: 0;
-        margin: 0;
-    }
-    .click span:last-child{
-        transform: rotate(45deg);
-        top:0;
-    }
-    nav .navlinks{
-        position: absolute;
-        top: 110px;
-        right: -100%;
-        bottom: 0;
-        width: 60%;
-        height: 100vh;
-        background-color: #222;
-        z-index: 3;
-        box-shadow: 5px 13px 30px rgba(0,0,0,0.1);
-        transition: 0.5s;
-        padding: 25px 0px;
-    }
-    nav .navlinks li{
-        display: block;
-    }
-    nav .navlinks li a{
-        display: block;
-        margin-bottom: 15px;
-        text-align: center;
-    }
-    nav .navlinks.open{
-        right: 0;
-    }
-}
-@media(max-width:768px)
-{
-    .container{
-        flex-direction: column;
-        padding-top: 2rem;
-    }
-    .hero-text{
-        padding: 40px 0px;
-    }
-}
-</style>
 <body>
-    <div class="hero-header">
-        <div class="wrapper">
-            <header>
-                <div class="logo">
-                    <i class="fa-solid fa-a"></i>
-                    <div class="logo-text">Adly Musyaffa Tibr</div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">A</div>
+                <span class="logo-text">Adly Musyaffa</span>
+            </a>
+            <ul class="navlinks" id="navlinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="skill.html">Skill</a></li>
+                <li><a href="projek.html">Projek</a></li>
+            </ul>
+            <div class="togglebtn" id="togglebtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-wrapper">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-circle" style="color:#22c55e; font-size:0.5rem;"></i>
+                    Tersedia untuk Kolaborasi
                 </div>
-                <nav>
-                    <div class="togglebtn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+                <h1 class="hero-name">
+                    Halo, Saya<br>
+                    <span class="gradient-text">Adly Musyaffa</span>
+                </h1>
+                <p class="hero-role">
+                    Seorang <span class="typed-text" id="typed-role"></span>
+                </p>
+                <p class="hero-desc">
+                    Perkenalkan, saya Adly Musyaffa Tibr — siswa SMK Wikrama Bogor 
+                    jurusan Pengembangan Perangkat Lunak dan Gim. Saya bersemangat 
+                    dalam membangun pengalaman web yang indah dan fungsional.
+                </p>
+                <div class="hero-actions">
+                    <a href="projek.html" class="btn-primary">
+                        <i class="fa-solid fa-rocket"></i> Lihat Projek
+                    </a>
+                    <a href="skill.html" class="btn-outline">
+                        <i class="fa-solid fa-code"></i> Keahlian Saya
+                    </a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://www.linkedin.com/in/adly-musyaffa-tibr/" class="social-link" target="_blank" title="LinkedIn">
+                        <i class="fa-brands fa-linkedin"></i>
+                    </a>
+                    <a href="https://www.instagram.com/musyaffadly/" class="social-link" target="_blank" title="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://github.com/" class="social-link" target="_blank" title="GitHub">
+                        <i class="fa-brands fa-github"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="image-container">
+                    <div class="image-ring"></div>
+                    <div class="image-ring-inner"></div>
+                    <div class="profile-img">
+                        <img src="gambar/adly.png" alt="Foto Adly Musyaffa Tibr">
                     </div>
-                    <ul class="navlinks">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="skill.html">Skill</a></li>
-                        <li><a href="projek.html">Projek</a></li>
-                    </ul>
-                </nav>
-            </header>
-            <div class="container">
-                <div class="hero-pic">
-                    <img src="gambar/adly.png" alt="adly gambar">
-                </div>
-                <div class="hero-text">
-                    <h5>Hi I'm <span class="input">Adly Musyaffa Tibr</span></h5>
-                    <h1>Adly</h1>
-                    <p>Perkenalkan saya Adly Musyaffa Tibr, saya merupakan murid SMK Wikrama Bogor dengan jurusan pengembangan perangkat lunak dan gim</p>
-                    <div class="social">
-                    <a href="https://www.linkedin.com/in/adly-musyaffa-tibr/"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/musyaffadly/"><i class="fa-brands fa-instagram"></i></a>
+                    <div class="float-badge float-badge-1">
+                        <i class="fa-solid fa-code"></i>
+                        <span>Web Developer</span>
+                    </div>
+                    <div class="float-badge float-badge-2">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span>SMK Wikrama</span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+        <div class="stats-wrapper">
+            <div class="stat-card">
+                <div class="stat-number">9+</div>
+                <div class="stat-label">Projek Selesai</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6+</div>
+                <div class="stat-label">Sertifikat Diraih</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">7+</div>
+                <div class="stat-label">Teknologi Dikuasai</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1+</div>
+                <div class="stat-label">Tahun Pengalaman</div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
     <script>
-        var togglebtn=document.querySelector(".togglebtn");
-        var nav=document.querySelector(".navlinks");
-        var links=document.querySelector(".navlinks li");
+        // Typed.js
+        new Typed('#typed-role', {
+            strings: ['Web Developer', 'Backend Developer', 'Pelajar SMK Wikrama'],
+            typeSpeed: 70,
+            backSpeed: 50,
+            loop: true
+        });
 
-        togglebtn.addEventListener("click", function(){
-            this.classList.toggle("click");
-            nav.classList.toggle("open");
-        })
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
 
-        var typed=new Typed(".input", {
-            string:["Adly Musyaffa Tibr", "Web Devoleper"],
-            typedSpeed:70,
-            backSpeed:55,
-            loop:true
-        })
+        // Mobile menu toggle
+        const togglebtn = document.getElementById('togglebtn');
+        const navlinks  = document.getElementById('navlinks');
+        togglebtn.addEventListener('click', () => {
+            navlinks.classList.toggle('open');
+            togglebtn.classList.toggle('open');
+        });
     </script>
 </body>
 </html>
